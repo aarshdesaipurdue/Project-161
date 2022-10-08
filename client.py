@@ -53,6 +53,10 @@ def stop():
 
 
 def musicWindow():
+    
+    global infoLabel
+    global filePathLabel
+    global listbox
 
     global song_counter
     window = Tk()
@@ -65,16 +69,18 @@ def musicWindow():
 
     listbox = Listbox(window,height=10,width=39,activestyle='dotbox',bg='LightSkyBlue',borderwidth=2,font=("Calibri",10))
     listbox.place(x=10,y=18)
+    
+    for file in os.listdir("shared_files"):
+      filename = os.fsdecode(file)
+      listbox.insert(song_counter,filename)
+      song_counter = song_counter +1 
 
 
     scrollbar1 = Scrollbar(listbox)
     scrollbar1.place(relheight=1,relx=1)
     scrollbar1.config(command=listbox.yview)
 
-    for file in os.listdir("shared_files"):
-      filename = os.fsdecode(file)
-      listbox.insert(song_counter,filename)
-      song_counter = song_counter +1 
+
 
     playButton = Button(window,text='Play',bd=1,width=10,bg='SkyBlue',font=("Calibri",10),command=play)
     playButton.place(x=30,y=200)
